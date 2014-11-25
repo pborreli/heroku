@@ -37,6 +37,10 @@ class Heroku::JSPlugin
     system "#{bin} plugins:install #{name}"
   end
 
+  def self.version
+    `#{bin} version`
+  end
+
   def self.bin
     File.join(Heroku::Helpers.home_directory, ".heroku", "heroku-plugins")
   end

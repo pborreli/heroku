@@ -13,5 +13,10 @@ module Heroku::Command
       validate_arguments!
       Heroku::JSPlugin.install(plugin)
     end
+
+    def version
+      validate_arguments!
+      puts Heroku::JSPlugin.version
+    end
   end
 end

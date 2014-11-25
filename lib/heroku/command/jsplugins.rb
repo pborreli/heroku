@@ -11,11 +11,13 @@ module Heroku::Command
     def install
       plugin = shift_argument
       validate_arguments!
+      Heroku::JSPlugin.setup
       Heroku::JSPlugin.install(plugin)
     end
 
     def version
       validate_arguments!
+      Heroku::JSPlugin.setup
       puts Heroku::JSPlugin.version
     end
   end

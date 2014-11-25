@@ -33,6 +33,10 @@ class Heroku::JSPlugin
     end
   end
 
+  def self.install(name)
+    system "#{bin} plugins:install #{name}"
+  end
+
   def self.bin
     File.join(Heroku::Helpers.home_directory, ".heroku", "heroku-plugins")
   end

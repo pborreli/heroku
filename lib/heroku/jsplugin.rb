@@ -13,7 +13,7 @@ class Heroku::JSPlugin
       end
       klass.send(:define_method, :run) do
         ENV['HEROKU_APP'] = @opts[:app]
-        exec this.bin, "#{plugin[:topic]}:#{plugin[:command]}"
+        exec this.bin, "#{plugin[:topic]}:#{plugin[:command]}", *@args
       end
       Heroku::Command.register_namespace(name: plugin[:topic])
       Heroku::Command.register_command(

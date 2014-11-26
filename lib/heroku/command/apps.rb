@@ -195,8 +195,8 @@ class Heroku::Command::Apps < Heroku::Command::Base
   # -s, --stack STACK          # the stack on which to create the app
   #     --region REGION        # specify region for this app to run in
   # -l, --locked               # lock the app
+  #     --ssh-git              # Use SSH git protocol
   # -t, --tier TIER            # HIDDEN: the tier for this app
-  #     --http-git             # HIDDEN: Use HTTP git protocol
   #
   #Examples:
   #
@@ -237,11 +237,11 @@ class Heroku::Command::Apps < Heroku::Command::Base
       api.post_app(params).body
     end
 
-    git_url = if options[:http_git]
+    git_url = if options[:ssh_git]
+      info["git_url"]
+    else
       warn_if_netrc_does_not_have_https_git
       "https://#{Heroku::Auth.http_git_host}/#{info['name']}.git"
-    else
-      info["git_url"]
     end
 
     begin

@@ -11,7 +11,7 @@ class Heroku::Command::Git < Heroku::Command::Base
   # clones a heroku app to your local machine at DIRECTORY (defaults to app name)
   #
   # -r, --remote REMOTE  # the git remote to create, default "heroku"
-  #     --http-git       # use HTTP git protocol
+  #     --ssh-git        # use SSH git protocol
   #
   #
   #Examples:
@@ -40,7 +40,7 @@ class Heroku::Command::Git < Heroku::Command::Base
   # if OPTIONS are specified they will be passed to git remote add
   #
   # -r, --remote REMOTE        # the git remote to create, default "heroku"
-  #     --http-git             # use HTTP git protocol
+  #     --ssh-git              # use SSH git protocol
   #
   #Examples:
   #
@@ -63,11 +63,11 @@ class Heroku::Command::Git < Heroku::Command::Base
 
   def git_url
     app_info = api.get_app(app).body
-    if options[:http_git]
+    if options[:ssh_git]
+      app_info['git_url']
+    else
       warn_if_netrc_does_not_have_https_git
       "https://#{Heroku::Auth.http_git_host}/#{app_info['name']}.git"
-    else
-      app_info['git_url']
     end
   end
 end
